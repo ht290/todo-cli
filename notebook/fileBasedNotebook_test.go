@@ -13,7 +13,7 @@ func TestCRUD(t *testing.T) {
 	require.NoError(t, err)
 	defer require.NoError(t, os.Remove(notebookFile.Name()))
 
-	notebook := singleUserNotebook{notebookFile.Name()}
+	notebook := fileBasedNotebook{notebookFile.Name(), protectedNotebook{}}
 	t.Run("List an empty notebook", func(t *testing.T) {
 		items, doneItems, err := notebook.ListAllItems()
 		require.NoError(t, err)

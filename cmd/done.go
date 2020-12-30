@@ -13,7 +13,7 @@ var doneCmd = &cobra.Command{
 	Short: "Complete a todo item",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		notebook := notebook.NewForSingleUser()
+		notebook := notebook.New()
 		// No need to check len(args) since `cobra.ExactArgs(1)` guarantees exactly 1 arg
 		id, err := strconv.Atoi(args[0])
 		if err != nil {
