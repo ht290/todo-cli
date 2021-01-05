@@ -5,10 +5,9 @@ type ItemId = int
 type UserId = string
 
 type Item struct {
-	Author UserId
-	Id     ItemId
-	// Plaintext summary must not be serialized and stored.
-	Summary          string `json:"-"`
+	Author           UserId
+	Id               ItemId
+	Summary          string
 	EncryptedSummary []byte
 	Done             bool
 }

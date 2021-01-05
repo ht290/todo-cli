@@ -1,7 +1,7 @@
 package notebook
 
 import (
-	"todo-cli/notebook/internal/persistence"
+	"todo-cli/notebook/persistence"
 )
 
 type ItemStorage interface {

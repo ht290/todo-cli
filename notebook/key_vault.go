@@ -6,7 +6,7 @@ import (
 	"crypto/rand"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
-	"todo-cli/notebook/internal/persistence"
+	"todo-cli/notebook/persistence"
 )
 
 const DefaultCredentialFilename = ".todo-config"
