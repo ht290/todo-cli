@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"todo-cli/notebook"
 )
 
 var newUsername *string
@@ -17,7 +16,7 @@ var createCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		return notebook.New().Create(*newUsername, password)
+		return initNotebook().Create(*newUsername, password)
 	},
 }
 

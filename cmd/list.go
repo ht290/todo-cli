@@ -36,8 +36,7 @@ var listCmd = &cobra.Command{
 }
 
 func listAll() error {
-	userNotebook := notebook.New()
-	items, doneItems, err := userNotebook.ListAllItems()
+	items, doneItems, err := initNotebook().ListAllItems()
 	if err != nil {
 		return err
 	}
@@ -47,8 +46,7 @@ func listAll() error {
 }
 
 func listUndone() error {
-	userNotebook := notebook.New()
-	items, err := userNotebook.ListUndoneItems()
+	items, err := initNotebook().ListUndoneItems()
 	if err != nil {
 		return err
 	}

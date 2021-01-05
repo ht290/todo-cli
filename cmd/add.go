@@ -2,8 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"todo-cli/notebook"
-
 	"github.com/spf13/cobra"
 )
 
@@ -13,9 +11,8 @@ var addCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// No need to check len(args) since `cobra.ExactArgs(1)` guarantees exactly 1 arg
-		notebook := notebook.New()
 		summary := args[0]
-		newItem, err := notebook.Add(summary)
+		newItem, err := initNotebook().Add(summary)
 		if err != nil {
 			return err
 		}

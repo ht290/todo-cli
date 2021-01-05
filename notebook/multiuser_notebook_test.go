@@ -11,9 +11,24 @@ import (
 func TestCRUD(t *testing.T) {
 	notebookFile, err := ioutil.TempFile("", "")
 	require.NoError(t, err)
-	defer require.NoError(t, os.Remove(notebookFile.Name()))
+	defer os.Remove(notebookFile.Name())
+	credentialFile, err := ioutil.TempFile("", "cred")
+	require.NoError(t, err)
+	defer os.Remove(credentialFile.Name())
 
-	notebook := fileBasedNotebook{notebookFile.Name(), protectedNotebook{}}
+	vault, err := UseLocalItemEncryptor(credentialFile.Name())
+	require.NoError(t, err)
+	notebook, err := New(vault, InitItemsStorage(notebookFile.Name()))
+
+	t.Run("Add a user and login", func(t *testing.T) {
+		const (
+			username = "jim"
+			password = "pwd123"
+		)
+		require.NoError(t, notebook.Create(username, password))
+		require.NoError(t, notebook.Unlock(username, password))
+	})
+
 	t.Run("List an empty notebook", func(t *testing.T) {
 		items, doneItems, err := notebook.ListAllItems()
 		require.NoError(t, err)
@@ -30,10 +45,12 @@ func TestCRUD(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, 0, doneItems)
 		require.Equal(t, []Item{{
+			Author:  "jim",
 			Id:      1,
 			Summary: "call mum",
 			Done:    false,
 		}, {
+			Author:  "jim",
 			Id:      2,
 			Summary: "call dad",
 			Done:    false,
@@ -47,10 +64,12 @@ func TestCRUD(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, 1, doneItems)
 		require.Equal(t, []Item{{
+			Author:  "jim",
 			Id:      1,
 			Summary: "call mum",
 			Done:    false,
 		}, {
+			Author:  "jim",
 			Id:      2,
 			Summary: "call dad",
 			Done:    true,

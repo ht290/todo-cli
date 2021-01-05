@@ -2,15 +2,9 @@ package persistence
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 )
-
-type ReaderWriter interface {
-	Read(out interface{}) error
-	Write(value interface{}) error
-}
 
 type JsonFile struct {
 	Filename string
@@ -40,6 +34,5 @@ func (j *JsonFile) Write(value interface{}) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("s %+v", serializedItems)
 	return ioutil.WriteFile(j.Filename, serializedItems, 0644)
 }
